@@ -6,7 +6,7 @@ use std::fs::File;
 use std::io::{BufReader, BufWriter, Read, Write};
 use std::path::PathBuf;
 
-//TODO: should I add high precision floats
+//TODO: should high precision floats be added
 
 #[derive(Args, Debug)]
 pub struct FastqQualityArgs {

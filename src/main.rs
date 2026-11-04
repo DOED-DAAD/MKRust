@@ -1,6 +1,7 @@
 use clap::{Parser, Subcommand};
 
 mod fastq_quality;
+mod kraken2;
 mod mash;
 mod mask;
 
@@ -16,7 +17,8 @@ enum Commands {
     Mask(mask::MaskArgs),
     FastqQuality(fastq_quality::FastqQualityArgs),
     MashTopHit(mash::MashTopHitArgs),
-    MashMetagenomicArgs(mash::MashMetagenomicArgs),
+    MashMetagenomic(mash::MashMetagenomicArgs),
+    Kraken2TopHit(kraken2::Kraken2TopHitArgs),
 }
 
 fn main() -> Result<(), std::io::Error> {
@@ -25,7 +27,8 @@ fn main() -> Result<(), std::io::Error> {
         Commands::Mask(args) => mask::mask(args),
         Commands::FastqQuality(args) => fastq_quality::FastQQuality::get_fastq_stats(args),
         Commands::MashTopHit(args) => mash::get_mash_top_hit(args),
-        Commands::MashMetagenomicArgs(args) => mash::check_metagenomic(args),
+        Commands::MashMetagenomic(args) => mash::check_metagenomic(args),
+        Commands::Kraken2TopHit(args) => kraken2::get_kraken2_top_hit(args),
     };
 
     Ok(())

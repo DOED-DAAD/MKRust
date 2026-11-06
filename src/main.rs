@@ -19,6 +19,7 @@ enum Commands {
     MashTopHit(mash::MashTopHitArgs),
     MashMetagenomic(mash::MashMetagenomicArgs),
     Kraken2TopHit(kraken2::Kraken2TopHitArgs),
+    Kraken2Bin(kraken2::Kraken2BinArgs),
 }
 
 fn main() -> Result<(), std::io::Error> {
@@ -29,6 +30,7 @@ fn main() -> Result<(), std::io::Error> {
         Commands::MashTopHit(args) => mash::get_mash_top_hit(args),
         Commands::MashMetagenomic(args) => mash::check_metagenomic(args),
         Commands::Kraken2TopHit(args) => kraken2::get_kraken2_top_hit(args),
+        Commands::Kraken2Bin(args) => kraken2::bin_kraken2_fasta(args),
     };
 
     Ok(())

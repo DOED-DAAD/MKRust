@@ -10,6 +10,7 @@ dependencies = [
  "clap",
  "flate2",
  "paste",
+ "regex",
  "rust-htslib",
  "serde",
  "serde_json",

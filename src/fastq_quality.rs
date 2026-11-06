@@ -330,14 +330,16 @@ impl FastQQuality {
             data_out.push(format!("{}", data));
             combined_data.add(data);
         }
+        writeln!(output_writer, "{{")?;
         for record in data_out {
-            writeln!(output_writer, "{}", record)?;
+            writeln!(output_writer, "\t{}", record)?;
         }
         combined_data.set_statistics();
-        writeln!(output_writer, "{}", combined_data)?;
+        writeln!(output_writer, "\t{}", combined_data)?;
         output_writer
             .flush()
             .expect("Could not output sequence buffer.");
+        writeln!(output_writer, "}}")?;
 
         Ok(())
     }

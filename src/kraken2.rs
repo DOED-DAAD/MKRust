@@ -289,7 +289,8 @@ fn get_contigs(
         .first()
         .map(|(_, taxa_name)| taxa_name.clone())
         .expect("No classified contigs classified at selected output level.");
-    output_path.push(format!("{}_{}.fasta.gz", args.prefix, first_output));
+    let output_closure = |output_name| format!("{}_{}.binned.fasta.gz", args.prefix, output_name);
+    output_path.push(output_closure(first_output.clone()));
     let mut file = File::create(output_path)?;
     let mut buf_writer = BufWriter::new(file);
     let mut encoder = GzEncoder::new(buf_writer, Compression::default());
@@ -300,7 +301,7 @@ fn get_contigs(
             buf_writer.flush()?;
             first_output = taxa_name.clone();
             output_path = std::env::current_dir()?;
-            output_path.push(format!("{}_{}.fasta.gz", args.prefix, first_output));
+            output_path.push(output_closure(first_output.clone()));
             file = File::create(output_path)?;
             buf_writer = BufWriter::new(file);
             encoder = GzEncoder::new(buf_writer, Compression::default());

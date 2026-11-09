@@ -52,20 +52,20 @@ impl fmt::Display for FastQQuality {
         write!(
             f,
             "\"{name}\": {{
-                \"total_bp\": {total_bp},
-                \"total_reads\": {total_reads},
-                \"qual_min\": {qual_min},
-                \"qual_max\": {qual_max},
-                \"qual_sum\": {qual_sum},
-                \"qual_mean\": {qual_mean:.2},
-                \"qual_std\": {qual_std:.2},
-                \"read_qual_mean\": {read_qual_mean:.2},
-                \"read_qual_std\": {read_qual_std:.2},
-                \"mean_sequence_length\": {mean_sequence_length:.2},
-                \"min_sequence_length\": {min_sequence_length},
-                \"max_sequence_length\": {max_sequence_length},
-                \"std_sequence_length\": {std_sequence_length:.2},
-                }}",
+    \"total_bp\": {total_bp},
+    \"total_reads\": {total_reads},
+    \"qual_min\": {qual_min},
+    \"qual_max\": {qual_max},
+    \"qual_sum\": {qual_sum},
+    \"qual_mean\": {qual_mean:.2},
+    \"qual_std\": {qual_std:.2},
+    \"read_qual_mean\": {read_qual_mean:.2},
+    \"read_qual_std\": {read_qual_std:.2},
+    \"mean_sequence_length\": {mean_sequence_length:.2},
+    \"min_sequence_length\": {min_sequence_length},
+    \"max_sequence_length\": {max_sequence_length},
+    \"std_sequence_length\": {std_sequence_length:.2},
+    }}",
             name = self.name,
             total_bp = self.total_bp,
             total_reads = self.total_reads,
@@ -332,10 +332,10 @@ impl FastQQuality {
         }
         writeln!(output_writer, "{{")?;
         for record in data_out {
-            writeln!(output_writer, "\t{},", record)?;
+            writeln!(output_writer, "  {},", record)?;
         }
         combined_data.set_statistics();
-        writeln!(output_writer, "\t{}", combined_data)?;
+        writeln!(output_writer, "  {}", combined_data)?;
         output_writer
             .flush()
             .expect("Could not output sequence buffer.");

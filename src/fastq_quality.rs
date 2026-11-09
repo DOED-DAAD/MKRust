@@ -332,7 +332,7 @@ impl FastQQuality {
         }
         writeln!(output_writer, "{{")?;
         for record in data_out {
-            writeln!(output_writer, "\t{}", record)?;
+            writeln!(output_writer, "\t{},", record)?;
         }
         combined_data.set_statistics();
         writeln!(output_writer, "\t{}", combined_data)?;

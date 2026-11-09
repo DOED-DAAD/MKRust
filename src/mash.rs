@@ -117,13 +117,10 @@ fn get_equivalent_taxa(
                 .split(REPORT_TAXON_DELIMITER)
                 .filter(|x| x.starts_with(taxonomic_level))
             {
-                if let Some(set) = equivalent_taxa.get_mut(key) {
-                    set.insert(taxa.to_string());
-                } else {
-                    let mut set = HashSet::new();
-                    set.insert(taxa.to_string());
-                    equivalent_taxa.insert(key.clone(), set);
-                }
+                equivalent_taxa
+                    .entry(key.clone())
+                    .or_default()
+                    .insert(taxa.to_string());
             }
         }
     }
@@ -161,12 +158,10 @@ fn normalize_taxa(
     taxa_level: String,
     equivalent_taxa: &HashMap<String, HashSet<String>>,
 ) {
-    let levels = taxa_levels
-        .get_mut(&taxa_level)
-        .expect("Could not find taxa level in equivalent taxa.");
+    let levels = taxa_levels.entry(taxa_level).or_default();
+
     for (key, value) in equivalent_taxa {
         if !value.is_disjoint(levels) {
-            dbg!("No value: {}", value);
             levels.retain(|item| !value.contains(item));
             levels.insert(key.clone());
         }
@@ -252,6 +247,7 @@ pub fn get_mash_top_hit(args: MashTopHitArgs) -> Result<(), std::io::Error> {
     let mut mash_data = parse_mash(file_path, args.percent_identity_cutoff);
     if mash_data.is_empty() {
         println!("No Species Identified");
+        return Ok(());
     }
     sort_mash_identity(&mut mash_data);
     sort_mash_p_value(&mut mash_data);

@@ -37,9 +37,11 @@ processing large sequencing datasets.
 
 ## Citation
 
-The Mikrokondo pipeline and this companion tool can be cited as:
+If you use these tools as part of mikrokondo, please use the [mikrokonodo](https://github.com/phac-nml/mikrokondo) citation.
 
-- Matthew Wells, James Robertson, Aaron Petkau, Christy-Lynn Peterson, Eric Marinier. "mikrokondo" Github <https://github.com/phac-nml/mikrokondo/>
+Otherwise you can cite this repository as:
+Matthew Wells, Christy-Lynn Peterson, Github https://github.com/DOED-DAAD/MKRust
+
 
 ## Contact
 

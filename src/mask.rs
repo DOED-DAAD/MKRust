@@ -123,14 +123,20 @@ pub fn mask(args: MaskArgs) -> Result<(), std::io::Error> {
                 let mut comp_base_count: u32 = 0;
                 let minimum_level = (args.pileup_support * pileup.depth() as f32) as u32;
                 for alignment in pileup.alignments() {
+                    let record = alignment.record();
+                    if record.is_unmapped() || record.is_secondary() || record.is_supplementary() {
+                        continue;
+                    }
                     if let Some(qpos) = alignment.qpos()
-                        && alignment.record().seq()[qpos] == comp_base
+                        && record.seq()[qpos] == comp_base
                     {
                         comp_base_count += 1;
+                    } else {
+                        continue;
                     }
 
-                    rev_count += alignment.record().is_reverse() as u32; // Adds 1 if true 0 if false
-                    fwd_count += !alignment.record().is_reverse() as u32; // adds 1 if false 0 if true
+                    rev_count += record.is_reverse() as u32; // Adds 1 if true 0 if false
+                    fwd_count += !record.is_reverse() as u32; // adds 1 if false 0 if true
                 }
 
                 let passed_strand_direction =

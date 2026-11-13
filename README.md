@@ -73,18 +73,6 @@ MKRust requires a recent stable Rust toolchain (edition 2024 features such as
 `let`-chains and `with_added_extension` are used, so **Rust 1.80+** is
 recommended).
 
-The tools rely on the following key crates and their system dependencies:
-
-| Dependency      | Purpose                                                        |
-| --------------- | ------------------------------------------------------------- |
-| `clap`          | Command-line argument parsing                                 |
-| `bio`           | FASTQ parsing                                                 |
-| `rust-htslib`   | Indexed FASTA (`faidx`) and BAM reading (requires **htslib**) |
-| `flate2`        | Gzip compression/decompression                                |
-| `regex`         | Sanitising taxon names for output filenames                   |
-| `serde_json`    | Parsing the equivalent-taxa JSON                              |
-| `paste`         | Macro helper for Mash sort functions                          |
-
 > [!Note]
 > Because `rust-htslib` links against **htslib**, a C compiler and the htslib
 > system libraries must be available at build time.
@@ -112,12 +100,12 @@ Available subcommands:
 
 **Examples**
 
-Compute FASTQ quality statistics for paired reads and write to a file:
+Compute FASTQ quality statistics for reads and write to a file:
 
 ```bash
 mkrust fastq-quality \
-  --fastq sample_R1.fastq.gz sample_R2.fastq.gz \
-  --names R1 R2 \
+  --fastq sample_R1.fastq.gz sample_R2.fastq.gz sample_SE.fastq.gz \
+  --names R1 R2 SE \
   --output sample_quality.json
 ```
 
